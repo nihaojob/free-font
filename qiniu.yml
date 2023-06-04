@@ -1,0 +1,33 @@
+
+
+name: Upload Website
+
+on: push
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - uses: hujiulong/action-qiniu-upload@master
+      with:
+        # Your qiniu access key, required.
+        access_key: ${{ secrets.AK }}
+
+        # Your qiniu secret key, required.
+        secret_key: ${{ secrets.SK }}
+
+        # Bucket name, required.
+        bucket: 'editors'
+
+        # The local directory (or file) you want to upload to bucket.
+        # Default: './'
+        source_dir: './'
+
+        # The directory inside of the bucket you want to upload to, namely key prefix prepended to dest file key.
+        # Default: '/'
+        dest_dir: '/web'
+
+        # Whether to ignore source maps.
+        # Default: true
+        ignore_source_map: true
